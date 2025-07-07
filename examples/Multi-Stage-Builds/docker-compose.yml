@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build-stage
+    container_name: flask-app
+    expose:
+      - "5000"
+    networks:
+      - flask_network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production-stage
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - flask-app
+    networks:
+      - flask_network
+
+networks:
+  flask_network:
+    driver: bridge

@@ -1,0 +1,11 @@
+To bind local directory and trasfer files from local to container
+docker run -d --name flask-app-bind \
+  --mount type=bind,source=$(pwd)/data,target=/data \
+  -p 5000:5000 \
+  flask-api
+
+To attach volume to the container
+docker run -d --name flask-app-volume \
+  --mount type=volume,source=my_volume,target=/data \
+  -p 5000:5000 \
+  flask-api
